@@ -19,6 +19,7 @@
       "inLanguage": "en"
     }
   </script>
+  <script type="application/ld+json" id="videoStructuredData"></script>
 </head>
 <body>
   <header class="site-header">
@@ -74,7 +75,7 @@
             <div class="mascot-arm arm-left"></div><div class="mascot-arm arm-right"></div>
             <div class="mascot-foot foot-left"></div><div class="mascot-foot foot-right"></div>
           </div>
-          <div class="float-card learn-card"><span class="float-card-icon">🔤</span><span><strong>ABC time!</strong><small>Let’s sing together</small></span></div>
+          <a class="float-card learn-card" href="#trending" data-play="abc-song"><span class="float-card-icon">🔤</span><span><strong>ABC time!</strong><small>Let’s sing together</small></span></a>
           <div class="float-card heart-card"><span>♥</span></div>
           <div class="hero-caption">Your new learning buddy, <strong>Winnie!</strong> <span>✦</span></div>
         </div>
@@ -99,7 +100,7 @@
     <section class="videos-section" id="trending">
       <div class="section-wrap">
         <div class="section-heading video-heading">
-          <div><span class="section-kicker">LITTLE VIDEOS, BIG IDEAS</span><h2>Everyone's watching <span class="heading-spark">✦</span></h2><p class="section-intro">Hand-picked favorites for your next “one more!” moment.</p></div>
+          <div><span class="section-kicker">LITTLE VIDEOS, BIG IDEAS</span><h2>Find your next favorite <span class="heading-spark">✦</span></h2><p class="section-intro">Real songs, stories, and discoveries to watch together.</p></div>
           <a class="text-link" href="#shorts">See all videos <span>→</span></a>
         </div>
         <div class="video-toolbar">
@@ -129,21 +130,21 @@
     <section class="shorts-section" id="shorts">
       <div class="shorts-wrap">
         <div class="shorts-copy">
-          <span class="section-kicker">TINY VIDEOS. HUGE “WOW!”</span>
+          <span class="section-kicker">LITTLE SONG BREAK. BIG “WOW!”</span>
           <h2>A little learning<br>goes a <span>long way.</span></h2>
-          <p>Quick, giggly, 30-second discoveries made for little attention spans and big imaginations.</p>
+          <p>Kid-friendly songs and videos made for little attention spans and big imaginations.</p>
           <a class="button button-light" href="#challenges">Meet the mini videos <span>→</span></a>
           <div class="shorts-note"><span class="note-icon">♫</span> Learn the words, sing it all day!</div>
         </div>
         <div class="shorts-art">
           <div class="short-video-card">
-            <div class="short-topline"><span>MINI MOMENT</span><span>00:30</span></div>
+            <div class="short-topline"><span>ABC SONG · VIDEO</span><span>PLAY</span></div>
             <div class="short-sun">☼</div>
-            <div class="short-rainbow"><span>R</span><span>A</span><span>I</span><span>N</span><span>B</span><span>O</span><span>W</span></div>
-            <div class="short-play">▶</div><p>Can you spot the rainbow?</p>
+            <div class="short-rainbow"><span>A</span><span>B</span><span>C</span><span>!</span></div>
+            <button class="short-play" data-play="abc-song" aria-label="Play the ABC Song">▶</button><p>Sing the alphabet with us!</p>
           </div>
           <span class="shorts-star star-one">✦</span><span class="shorts-star star-two">✳</span>
-          <span class="shorts-bubble bubble-one">So<br>bright!</span><span class="shorts-bubble bubble-two">30<br>sec</span>
+          <span class="shorts-bubble bubble-one">So<br>bright!</span><span class="shorts-bubble bubble-two">Sing<br>along</span>
         </div>
       </div>
     </section>
@@ -154,15 +155,15 @@
         <span class="weekly-pill"><span>✦</span> This week's picks</span>
       </div>
       <div class="challenge-grid">
-        <button class="challenge-card challenge-animal" data-challenge="I have a long trunk and big floppy ears. Who am I?" data-answer="elephant"><span class="challenge-emoji">🐘</span><span class="challenge-label">ANIMAL RIDDLE</span><strong>Guess who has<br>a super-long nose?</strong><span class="challenge-action">Take a guess <b>→</b></span></button>
-        <button class="challenge-card challenge-sound" data-challenge="Which animal says moo and loves munching grass?" data-answer="cow"><span class="challenge-emoji">🐄</span><span class="challenge-label">SOUND SAFARI</span><strong>Moo! Who made<br>that sound?</strong><span class="challenge-action">Take a guess <b>→</b></span></button>
-        <button class="challenge-card challenge-shape" data-challenge="I have three sides and three corners. What shape am I?" data-answer="triangle"><span class="challenge-emoji">🔺</span><span class="challenge-label">SHAPE SPOTTER</span><strong>Three sides, three<br>corners. Find me!</strong><span class="challenge-action">Take a guess <b>→</b></span></button>
+        <button class="challenge-card challenge-animal" data-video="animal-sounds" data-challenge="I have a long trunk and big floppy ears. Who am I?" data-answer="elephant"><span class="challenge-emoji">🐘</span><span class="challenge-label">ANIMAL RIDDLE · WATCH A CLUE</span><strong>Guess who has<br>a super-long nose?</strong><span class="challenge-action">Watch &amp; guess <b>▶</b></span></button>
+        <button class="challenge-card challenge-sound" data-video="animal-sounds" data-challenge="Which animal says moo and loves munching grass?" data-answer="cow"><span class="challenge-emoji">🐄</span><span class="challenge-label">SOUND SAFARI · WATCH A CLUE</span><strong>Moo! Who made<br>that sound?</strong><span class="challenge-action">Watch &amp; guess <b>▶</b></span></button>
+        <button class="challenge-card challenge-shape" data-video="shape-song" data-challenge="I have three sides and three corners. What shape am I?" data-answer="triangle"><span class="challenge-emoji">🔺</span><span class="challenge-label">SHAPE SPOTTER · WATCH A CLUE</span><strong>Three sides, three<br>corners. Find me!</strong><span class="challenge-action">Watch &amp; guess <b>▶</b></span></button>
       </div>
     </section>
 
     <section class="grownups-section" id="grownups">
       <div class="grownups-wrap">
-        <div class="grownups-art"><div class="grownups-circle"></div><span class="parent-emoji">👩‍👧</span><span class="growth-sticker sticker-a">✦</span><span class="growth-sticker sticker-b">♥</span><div class="progress-note"><span>THIS WEEK</span><strong>4 days <i>↑</i></strong><small>Look at you go!</small></div></div>
+        <div class="grownups-art"><div class="grownups-circle"></div><span class="parent-emoji">👩‍👧</span><span class="growth-sticker sticker-a">✦</span><span class="growth-sticker sticker-b">♥</span><div class="progress-note"><span>LEARNING STREAK</span><strong id="parentStreak">0 days</strong><small id="parentProgress">Start a little adventure!</small></div></div>
         <div class="grownups-copy">
           <span class="section-kicker">A LITTLE PEACE OF MIND</span><h2>Made for little learners.<br><span>Loved by grown-ups.</span></h2>
           <p>A calmer corner of the internet, with age-friendly picks and simple ways to make every watch count.</p>
@@ -175,16 +176,16 @@
     <section class="tools-section section-wrap" id="parent-tools">
       <div class="tools-heading"><span class="section-kicker">A LITTLE HELP FOR THE BIG PEOPLE</span><h2>Learning that fits your family.</h2><p>Small tools to make screen time feel a little more intentional.</p></div>
       <div class="tools-grid">
-        <article class="tool-card"><span class="tool-icon tool-purple">◷</span><div><h3>Screen-time setting</h3><p>Build a gentle routine that works for your day.</p><button class="tool-action" id="screenTimeButton">Set a reminder <span>→</span></button></div></article>
+        <article class="tool-card"><span class="tool-icon tool-purple">◷</span><div><h3>Screen-time setting</h3><p>Build a gentle routine that works for your day.</p><button class="tool-action" id="screenTimeButton">Choose session limit <span>→</span></button><small id="screenTimeStatus" class="screen-time-status">No limit set</small></div></article>
         <article class="tool-card"><span class="tool-icon tool-peach">♡</span><div><h3>Favorite videos</h3><p>Keep your little learner's favorite discoveries close.</p><a class="tool-action" href="#trending" data-filter="saved">See saved videos <span>→</span></a></div></article>
         <article class="tool-card"><span class="tool-icon tool-purple">◷</span><div><h3>Watch history</h3><p>Revisit the little adventures you've watched together.</p><a class="tool-action" href="#trending" data-filter="history">See watch history <span>→</span></a></div></article>
         <article class="tool-card"><span class="tool-icon tool-green">✦</span><div><h3>Little learning wins</h3><p>Celebrate curiosity, one happy day at a time.</p><span class="tool-action">You're doing great! <span>♥</span></span></div></article>
       </div>
       <div class="learner-card">
         <div class="learner-greeting"><span class="learner-avatar">🐻</span><div><span class="section-kicker">YOUR LITTLE LEARNER DASHBOARD</span><h3>You're growing every day!</h3></div></div>
-        <div class="learner-stat"><span>🔥</span><strong>4 days</strong><small>learning streak</small></div>
-        <div class="learner-progress"><div><span id="learnerLevel">Level 2 · Curious Cub</span><span id="learnerXp">120 / 200 XP</span></div><div class="progress-track"><span id="learnerProgress"></span></div></div>
-        <div class="learner-badge"><span>🏅</span><div><strong>Badge unlocked!</strong><small>Animal Explorer</small></div></div>
+        <div class="learner-stat"><span>🔥</span><strong id="learnerStreak">Start today!</strong><small>learning streak</small></div>
+        <div class="learner-progress"><div><span id="learnerLevel">Level 1 · Curious Cub</span><span id="learnerXp">0 / 100 XP</span></div><div class="progress-track"><span id="learnerProgress"></span></div></div>
+        <div class="learner-badge"><span id="learnerBadgeIcon">🏅</span><div><strong id="learnerBadgeTitle">Your first badge awaits!</strong><small id="learnerBadgeText">Watch and learn</small></div></div>
         <a class="learner-challenge" href="#challenges"><span>✦</span> Today's challenge <b>+10 XP</b><span class="challenge-go">→</span></a>
       </div>
     </section>
@@ -193,11 +194,12 @@
       <div class="ideas-wrap">
         <div class="ideas-copy"><span class="section-kicker">MADE WITH A LITTLE IMAGINATION</span><h2>What's next in<br>our wonder-filled world?</h2><p>There’s always another question to ask, another song to sing, another little adventure waiting around the corner.</p><a class="text-link" href="#trending">Find a new favorite <span>→</span></a></div>
         <div class="ideas-list">
-          <div><span>01</span><strong>Learn 10 English Words in 1 Minute</strong><i>↗</i></div>
-          <div><span>02</span><strong>Animal Sounds Quiz &amp; Name That Animal</strong><i>↗</i></div>
-          <div><span>03</span><strong>Counting to 100 Challenge</strong><i>↗</i></div>
-          <div><span>04</span><strong>Learn Colors with Magic Balloons</strong><i>↗</i></div>
-          <div><span>05</span><strong>ABC Song Adventure &amp; Space Explorers</strong><i>↗</i></div>
+          <a href="#trending" data-play="first-words"><span>01</span><strong>First Words, Songs &amp; Rhymes</strong><i>▶</i></a>
+          <a href="#trending" data-play="animal-sounds"><span>02</span><strong>Animal Sounds Song &amp; Guessing Game</strong><i>▶</i></a>
+          <a href="#trending" data-play="big-numbers"><span>03</span><strong>Count All the Way to 100</strong><i>▶</i></a>
+          <a href="#trending" data-play="rainbow-song"><span>04</span><strong>Sing the Rainbow Colors</strong><i>▶</i></a>
+          <a href="#trending" data-play="abc-song"><span>05</span><strong>ABC Song Adventure</strong><i>▶</i></a>
+          <a href="#trending" data-play="space-asteroid"><span>06</span><strong>NASA's Bennu Space Adventure</strong><i>▶</i></a>
         </div>
       </div>
     </section>
@@ -217,19 +219,28 @@
       <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="brand-name">kids<span>world</span></span></a><p>A happy little corner of the internet, made for big imaginations.</p></div>
       <div class="footer-links"><div><strong>Explore</strong><a href="#subjects">All subjects</a><a href="#trending">Popular videos</a><a href="#challenges">Challenges</a></div><div><strong>Grown-ups</strong><a href="#grownups">For parents</a><a href="#parent-tools">Learning tools</a><a href="#ideas">Our ideas</a></div><div><strong>Our promise</strong><a href="#grownups">Safe &amp; thoughtful</a><a href="#grownups">Made for learning</a><a href="#home">About Kids World</a></div></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 Kids Learning World. Made with wonder. <span>✦</span></span><span>Curiosity looks good on you. ♡</span></div>
+    <div class="footer-bottom"><span>© 2026 Kids Learning World. Made with wonder. <span>✦</span></span><span>External videos are curated; ask a grown-up to watch with you. ♡</span></div>
   </footer>
 
   <dialog class="video-dialog" id="videoDialog">
     <button class="dialog-close" data-close aria-label="Close video">×</button>
     <div class="dialog-player" id="dialogPlayer"><span class="dialog-play">▶</span></div>
-    <div class="dialog-copy"><span class="section-kicker" id="dialogCategory"></span><h2 id="dialogTitle"></h2><p id="dialogDescription"></p><div class="dialog-meta" id="dialogMeta"></div></div>
+    <div class="dialog-copy"><span class="section-kicker" id="dialogCategory"></span><h2 id="dialogTitle"></h2><p id="dialogDescription"></p><p class="grownup-video-note">Videos are hosted by trusted education creators, NASA, or MDN. Ask a grown-up to watch with you. No account is needed here.</p><div class="dialog-meta" id="dialogMeta"></div></div>
   </dialog>
   <dialog class="prompt-dialog" id="promptDialog">
     <button class="dialog-close" data-close aria-label="Close challenge">×</button>
     <span class="prompt-emoji">🤔</span><span class="section-kicker">THINK, THINK, THINK!</span><h2 id="promptQuestion"></h2>
     <label for="promptAnswer">What's your guess?</label><input id="promptAnswer" autocomplete="off" placeholder="Type your answer">
     <button class="button button-primary" id="checkAnswer">Check my guess! <span>→</span></button><p id="answerFeedback" aria-live="polite"></p>
+  </dialog>
+  <dialog class="prompt-dialog parent-settings-dialog" id="parentSettingsDialog">
+    <button class="dialog-close" data-close aria-label="Close screen-time settings">×</button>
+    <span class="prompt-emoji">⏰</span><span class="section-kicker">GROWN-UPS ONLY</span><h2>Set a video-session limit</h2>
+    <p class="parent-settings-copy">Choose how many minutes of video time work for your family. Ask a grown-up to set this together.</p>
+    <label for="screenTimeMinutes">Minutes (1–180), or 0 to turn the limit off</label>
+    <input id="screenTimeMinutes" type="number" min="0" max="180" step="1" value="20">
+    <button class="button button-primary" id="saveScreenTime">Save grown-up setting <span>→</span></button>
+    <p id="screenTimeFeedback" aria-live="polite"></p>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
