@@ -33,6 +33,7 @@
         <a href="#subjects">Explore</a>
         <a href="#trending">Videos</a>
         <a href="#challenges">Challenges</a>
+        <a href="#plans">Plans</a>
         <a href="#grownups">For grown-ups</a>
       </nav>
       <div class="nav-actions">
@@ -173,6 +174,52 @@
       </div>
     </section>
 
+    <section class="pricing-section section-wrap" id="plans">
+      <div class="pricing-heading">
+        <span class="section-kicker">A PLAN FOR EVERY LEARNER</span>
+        <h2>Small steps. Big possibilities.</h2>
+        <p>Choose the support that fits your learning journey.</p>
+      </div>
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <div class="pricing-plan">Start here</div>
+          <p class="pricing-description">Build a daily learning habit with the essentials.</p>
+          <p class="pricing-price"><strong>$0</strong><span>/ forever</span></p>
+          <a class="button button-outline pricing-button" href="#trending">Start learning <span>→</span></a>
+          <ul class="pricing-features">
+            <li>Placement test</li>
+            <li>10 beginner lessons</li>
+            <li>Daily vocabulary practice</li>
+          </ul>
+        </article>
+        <article class="pricing-card pricing-card-featured">
+          <span class="pricing-badge">Most popular</span>
+          <div class="pricing-plan">Plus</div>
+          <p class="pricing-description">Grow with confidence. Everything you need to make steady progress each week.</p>
+          <p class="pricing-price"><strong>$12</strong><span>/ month</span></p>
+          <button class="button button-primary pricing-button" type="button" data-plan-select="Plus" data-plan-price="12">Choose Plus <span>→</span></button>
+          <ul class="pricing-features">
+            <li>Count to 100 and number patterns</li>
+            <li>First words and listening practice</li>
+            <li>Progress tracking and streaks</li>
+          </ul>
+        </article>
+        <article class="pricing-card">
+          <div class="pricing-plan">Pro</div>
+          <p class="pricing-description">Reach your goals with personalized support for work, exams, and big next steps.</p>
+          <p class="pricing-price"><strong>$24</strong><span>/ month</span></p>
+          <button class="button button-outline pricing-button" type="button" data-plan-select="Pro" data-plan-price="24">Choose Pro <span>→</span></button>
+          <ul class="pricing-features">
+            <li>Everything in Plus</li>
+            <li>Nature and space exploration courses</li>
+            <li>Personalized learning plan</li>
+            <li>Monthly tutor conversation</li>
+          </ul>
+        </article>
+      </div>
+      <p class="pricing-note">Plus and Pro are paid manually each month through Whish Money. Course access is not activated automatically.</p>
+    </section>
+
     <section class="tools-section section-wrap" id="parent-tools">
       <div class="tools-heading"><span class="section-kicker">A LITTLE HELP FOR THE BIG PEOPLE</span><h2>Learning that fits your family.</h2><p>Small tools to make screen time feel a little more intentional.</p></div>
       <div class="tools-grid">
@@ -194,12 +241,12 @@
       <div class="ideas-wrap">
         <div class="ideas-copy"><span class="section-kicker">MADE WITH A LITTLE IMAGINATION</span><h2>What's next in<br>our wonder-filled world?</h2><p>There’s always another question to ask, another song to sing, another little adventure waiting around the corner.</p><a class="text-link" href="#trending">Find a new favorite <span>→</span></a></div>
         <div class="ideas-list">
-          <a href="#trending" data-play="first-words"><span>01</span><strong>First Words, Songs &amp; Rhymes</strong><i>▶</i></a>
+          <a href="#trending" data-play="phonics-song"><span>01</span><strong>Phonics Song &amp; Sound Practice</strong><i>▶</i></a>
           <a href="#trending" data-play="animal-sounds"><span>02</span><strong>Animal Sounds Song &amp; Guessing Game</strong><i>▶</i></a>
-          <a href="#trending" data-play="big-numbers"><span>03</span><strong>Count All the Way to 100</strong><i>▶</i></a>
+          <a href="#trending" data-play="counting-song"><span>03</span><strong>Count from 1 to 20</strong><i>▶</i></a>
           <a href="#trending" data-play="rainbow-song"><span>04</span><strong>Sing the Rainbow Colors</strong><i>▶</i></a>
           <a href="#trending" data-play="abc-song"><span>05</span><strong>ABC Song Adventure</strong><i>▶</i></a>
-          <a href="#trending" data-play="space-asteroid"><span>06</span><strong>NASA's Bennu Space Adventure</strong><i>▶</i></a>
+          <a href="#trending" data-play="shape-song"><span>06</span><strong>Shapes Song &amp; Spotter Game</strong><i>▶</i></a>
         </div>
       </div>
     </section>
@@ -217,7 +264,7 @@
   <footer class="site-footer">
     <div class="footer-main">
       <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="brand-name">kids<span>world</span></span></a><p>A happy little corner of the internet, made for big imaginations.</p></div>
-      <div class="footer-links"><div><strong>Explore</strong><a href="#subjects">All subjects</a><a href="#trending">Popular videos</a><a href="#challenges">Challenges</a></div><div><strong>Grown-ups</strong><a href="#grownups">For parents</a><a href="#parent-tools">Learning tools</a><a href="#ideas">Our ideas</a></div><div><strong>Our promise</strong><a href="#grownups">Safe &amp; thoughtful</a><a href="#grownups">Made for learning</a><a href="#home">About Kids World</a></div></div>
+      <div class="footer-links"><div><strong>Explore</strong><a href="#subjects">All subjects</a><a href="#trending">Popular videos</a><a href="#challenges">Challenges</a></div><div><strong>Grown-ups</strong><a href="#grownups">For parents</a><a href="#plans">Learning plans</a><a href="#parent-tools">Learning tools</a></div><div><strong>Our promise</strong><a href="#grownups">Safe &amp; thoughtful</a><a href="#grownups">Made for learning</a><a href="#home">About Kids World</a></div></div>
     </div>
     <div class="footer-bottom"><span>© 2026 Kids Learning World. Made with wonder. <span>✦</span></span><span>External videos are curated; ask a grown-up to watch with you. ♡</span></div>
   </footer>
@@ -241,6 +288,17 @@
     <input id="screenTimeMinutes" type="number" min="0" max="180" step="1" value="20">
     <button class="button button-primary" id="saveScreenTime">Save grown-up setting <span>→</span></button>
     <p id="screenTimeFeedback" aria-live="polite"></p>
+  </dialog>
+  <dialog class="prompt-dialog payment-dialog" id="paymentDialog" aria-labelledby="paymentTitle">
+    <button class="dialog-close" data-close aria-label="Close payment instructions">×</button>
+    <span class="prompt-emoji" aria-hidden="true">💸</span>
+    <span class="section-kicker">GROWN-UP PAYMENT</span>
+    <h2 id="paymentTitle">Pay with Whish Money</h2>
+    <p class="payment-plan-line"><strong id="paymentPlanName"></strong> · <strong id="paymentPlanPrice"></strong>/month</p>
+    <p class="parent-settings-copy">In the Whish Money app, choose Send Money and send the monthly amount to this number:</p>
+    <div class="payment-number-row"><strong id="paymentNumber">+961 71 208142</strong><button class="button button-outline" id="copyPaymentNumber" type="button">Copy number</button></div>
+    <p class="payment-disclaimer">This is a manual transfer, not an automatic subscription. You’ll need to send the payment again each month. This website cannot verify your transfer or activate paid courses automatically.</p>
+    <p id="paymentFeedback" aria-live="polite"></p>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>

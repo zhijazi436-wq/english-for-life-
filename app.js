@@ -18,7 +18,7 @@ const videos = [
     description: "Count from one to twenty with a number song. Try counting fingers, toys, or snacks together after the video."
   },
   {
-    id: "big-numbers", videoId: "bGetqbqDVaA", category: "math", title: "Big Numbers: Count to 100", creator: "The Singing Walrus",
+    id: "big-numbers", plan: "plus", videoId: "bGetqbqDVaA", category: "math", title: "Big Numbers: Count to 100", creator: "The Singing Walrus",
     age: "Ages 6–10", icon: "💯", label: "BIG NUMBER FUN", colors: "thumb-yellow",
     objective: "Practice counting in order all the way from one to one hundred.",
     description: "A counting song for practicing numbers up to one hundred. Pause whenever you need a little counting break."
@@ -66,20 +66,20 @@ const videos = [
     description: "A familiar action song. Sing, clap, and move along in a safe space with room to wiggle."
   },
   {
-    id: "first-words", videoId: "hTqtGJwsJVE", category: "english", title: "First Words, Songs & Rhymes", creator: "Ms Rachel",
+    id: "first-words", plan: "plus", videoId: "hTqtGJwsJVE", category: "english", title: "First Words, Songs & Rhymes", creator: "Ms Rachel",
     age: "Ages 3–5", icon: "💬", label: "FIRST WORDS", colors: "thumb-lilac",
     objective: "Practice early words, listening, and joining in with nursery rhymes.",
     description: "A longer early-learning video with songs and first words. Choose a short moment to watch together and follow the child's interests."
   },
   {
-    id: "flower-closeup", category: "science", title: "A Flower Opens", creator: "MDN Web Docs · CC0",
+    id: "flower-closeup", plan: "pro", category: "science", title: "A Flower Opens", creator: "MDN Web Docs · CC0",
     mediaUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
     age: "Ages 3–12", icon: "🌼", label: "NATURE CLOSE-UP", colors: "thumb-mint",
     objective: "Observe how a flower changes as it opens.",
     description: "Watch a flower open in this short, silent nature clip. Look closely: what changes? What colors and shapes can you find?"
   },
   {
-    id: "space-asteroid", category: "science", title: "Bennu's Journey: A Space Rock", creator: "NASA Goddard",
+    id: "space-asteroid", plan: "pro", category: "science", title: "Bennu's Journey: A Space Rock", creator: "NASA Goddard",
     mediaUrl: "https://images-assets.nasa.gov/video/GSFC_20140923_Bennu_m11661_Teaser/GSFC_20140923_Bennu_m11661_Teaser~small.mp4",
     poster: "https://images-assets.nasa.gov/video/GSFC_20140923_Bennu_m11661_Teaser/GSFC_20140923_Bennu_m11661_Teaser~medium.jpg",
     captions: "https://images-assets.nasa.gov/video/GSFC_20140923_Bennu_m11661_Teaser/GSFC_20140923_Bennu_m11661_Teaser.vtt",
@@ -161,7 +161,8 @@ function makeCard(video) {
 
 function renderVideos() {
   const query = videoSearch.value.trim().toLowerCase();
-  const matches = videos.filter((video) => {
+  const freeVideos = videos.filter((video) => !video.plan || video.plan === "free");
+  const matches = freeVideos.filter((video) => {
     const favorites = readList("kidsworld-favorites");
     const history = readList("kidsworld-history");
     const matchesFilter = activeFilter === "all"
@@ -179,7 +180,7 @@ function renderVideos() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Kids Learning World educational videos",
-    itemListElement: videos.map((video, index) => ({
+    itemListElement: freeVideos.map((video, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -312,6 +313,10 @@ function setActiveFilter(filter) {
 function openVideo(id, forChallenge = false) {
   const video = videos.find((item) => item.id === id);
   if (!video) return;
+  if (video.plan && video.plan !== "free") {
+    showToast(`${video.plan === "plus" ? "Plus" : "Pro"} courses are hidden until checkout is connected.`);
+    return;
+  }
   if (screenTimeExpired || (getScreenTimeRemaining() !== null && getScreenTimeRemaining() <= 0)) {
     screenTimeExpired = true;
     updateScreenTimeStatus();
@@ -347,8 +352,9 @@ function openVideo(id, forChallenge = false) {
       : "";
     player.innerHTML = `<video controls playsinline preload="metadata" ${video.poster ? `poster="${video.poster}"` : ""} aria-label="${video.title}">${captions}<source src="${video.mediaUrl}" type="video/mp4">Your browser cannot play this video. Please try a different browser.</video>`;
   }
-  const sameSubject = videos.filter((item) => item.category === video.category && item.id !== video.id);
-  const related = (sameSubject.length ? sameSubject : videos.filter((item) => item.id !== video.id)).slice(0, 2);
+  const availableVideos = videos.filter((item) => (!item.plan || item.plan === "free") && item.id !== video.id);
+  const sameSubject = availableVideos.filter((item) => item.category === video.category);
+  const related = (sameSubject.length ? sameSubject : availableVideos).slice(0, 2);
   const challengeButton = activeChallenge?.video === video.id
     ? `<button class="related-link" data-start-challenge>Try the challenge →</button>`
     : "";
@@ -542,6 +548,28 @@ document.getElementById("saveScreenTime").addEventListener("click", () => {
   startScreenTimeTimer();
   parentSettingsDialog.close();
   showToast(`A grown-up set a ${parsed}-minute video limit. ⏰`);
+});
+
+const paymentDialog = document.getElementById("paymentDialog");
+document.querySelectorAll("[data-plan-select]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.getElementById("paymentPlanName").textContent = button.dataset.planSelect;
+    document.getElementById("paymentPlanPrice").textContent = `$${button.dataset.planPrice}`;
+    document.getElementById("paymentFeedback").textContent = "";
+    paymentDialog.showModal();
+  });
+});
+
+document.getElementById("copyPaymentNumber").addEventListener("click", async () => {
+  const feedback = document.getElementById("paymentFeedback");
+  if (!navigator.clipboard) {
+    feedback.textContent = "Copy isn't available here. Please enter the number shown above in Whish Money.";
+    feedback.className = "feedback-reminder";
+    return;
+  }
+  await navigator.clipboard.writeText(document.getElementById("paymentNumber").textContent);
+  feedback.textContent = "Number copied. Open Whish Money to send your payment.";
+  feedback.className = "feedback-success";
 });
 
 const themeToggle = document.getElementById("themeToggle");
