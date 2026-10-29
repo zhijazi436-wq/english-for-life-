@@ -1,671 +1,345 @@
-/**
- * NovaStore - Main Application JavaScript
- * Fully interactive shopping cart, product filter, search, modals & toasts.
- */
-
-// ==========================================
-// 1. Product Catalog Data
-// ==========================================
-const PRODUCTS = [
+const videos = [
   {
-    id: 1,
-    name: "Aura Noise-Cancelling Headphones",
-    category: "electronics",
-    price: 189.99,
-    oldPrice: 249.99,
-    rating: 4.9,
-    reviewCount: 142,
-    badge: "sale",
-    badgeLabel: "Save $60",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80",
-    description: "Immerse yourself in pure studio sound with active hybrid noise cancellation, 40-hour battery life, and ultra-plush memory foam earcups.",
-    features: [
-      "Active Hybrid Noise Cancellation (ANC)",
-      "Up to 40 hours of playback per charge",
-      "Bluetooth 5.3 & Low Latency Audio",
-      "Built-in crystal clear microphone array"
-    ]
+    id: "animal-band", category: "science", title: "The Animal Sound Band!", creator: "Winnie & Friends",
+    duration: "2:14", age: "Ages 3–6", views: 12800, likes: 942, icon: "🐵", label: "THIS WEEK'S #1",
+    colors: "thumb-coral", objective: "Recognize familiar animal sounds and connect each sound to an animal.",
+    description: "Join Winnie and the woodland band for a happy little guessing game. Can you spot who goes moo, quack, and oink?"
   },
   {
-    id: 2,
-    name: "Minimalist Chrono Watch",
-    category: "accessories",
-    price: 129.00,
-    oldPrice: 155.00,
-    rating: 4.8,
-    reviewCount: 98,
-    badge: "popular",
-    badgeLabel: "Best Seller",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80",
-    description: "Crafted with 316L surgical stainless steel and scratch-resistant sapphire crystal glass, this timepiece combines classic elegance with everyday durability.",
-    features: [
-      "Japanese Quartz Movement",
-      "Water resistant to 50 meters (5 ATM)",
-      "Genuine Italian leather interchangeable strap",
-      "Ultra-slim 7.5mm case profile"
-    ]
+    id: "counting-stars", category: "math", title: "Count the Stars with Me!", creator: "Little Learner Club",
+    duration: "3:08", age: "Ages 3–5", views: 9600, likes: 721, icon: "🌟", label: "NUMBER ONE FUN",
+    colors: "thumb-yellow", objective: "Practice counting objects from one to ten.",
+    description: "The stars are out and they need counting! Join a gentle bedtime adventure and count along from one to ten."
   },
   {
-    id: 3,
-    name: "Urban Organic Cotton Hoodie",
-    category: "fashion",
-    price: 64.50,
-    oldPrice: null,
-    rating: 4.7,
-    reviewCount: 64,
-    badge: "new",
-    badgeLabel: "New Arrival",
-    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&auto=format&fit=crop&q=80",
-    description: "Spun from 100% certified organic heavyweight cotton. Features a relaxed unisex silhouette, brushed interior fleece, and reinforced stitching.",
-    features: [
-      "100% GOTS Certified Organic Cotton",
-      "Pre-shrunk fabric to retain shape wash after wash",
-      "Kangaroo pocket with hidden headphone pass-through",
-      "Eco-friendly non-toxic dyes"
-    ]
+    id: "hello-words", category: "english", title: "10 Happy Words in 1 Minute", creator: "Sunny Sounds",
+    duration: "0:58", age: "Ages 5–8", views: 18400, likes: 1540, icon: "🔤", label: "QUICK & CLEVER",
+    colors: "thumb-lilac", objective: "Build everyday English vocabulary through repetition and pictures.",
+    description: "Ready, set, say! Practice ten useful English words with cheerful pictures, a catchy beat, and lots of chances to join in."
   },
   {
-    id: 4,
-    name: "Smart Ambient LED Desk Lamp",
-    category: "lifestyle",
-    price: 49.99,
-    oldPrice: 69.99,
-    rating: 4.6,
-    reviewCount: 81,
-    badge: "sale",
-    badgeLabel: "Sale",
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=80",
-    description: "Engineered to eliminate glare and eye strain. Features stepless dimming, 5 color temperature modes, wireless phone charging base, and touch controls.",
-    features: [
-      "10W Fast Qi Wireless Charging pad built into base",
-      "Color temperature range 2700K - 6500K",
-      "Auto-off 45-minute sleep timer",
-      "Multi-angle foldable aluminum alloy arm"
-    ]
+    id: "rainbow-lab", category: "science", title: "The Rainbow in a Glass", creator: "Curious Cloud",
+    duration: "4:22", age: "Ages 7–10", views: 7300, likes: 604, icon: "🌈", label: "CURIOUS PICK",
+    colors: "thumb-mint", objective: "Explore how colors mix with a safe, grown-up-guided experiment.",
+    description: "What happens when sunny colors say hello? Curious Cloud explores color mixing with a simple experiment to try together with a grown-up."
   },
   {
-    id: 5,
-    name: "Full-Grain Leather Everyday Backpack",
-    category: "accessories",
-    price: 145.00,
-    oldPrice: 180.00,
-    rating: 4.9,
-    reviewCount: 112,
-    badge: "popular",
-    badgeLabel: "Popular",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=80",
-    description: "A timeless companion for work, travel, and commutes. Fits up to a 16-inch laptop with dedicated shock-proof padding and weather-resistant zippers.",
-    features: [
-      "Padded compartment fits up to 16\" laptop",
-      "Water-repellent vegetable-tanned leather finish",
-      "Ergonomic breathable mesh shoulder straps",
-      "Luggage pass-through strap for easy travel"
-    ]
+    id: "shape-hunt", category: "math", title: "The Great Shape Safari", creator: "Winnie & Friends",
+    duration: "2:46", age: "Ages 4–7", views: 6700, likes: 513, icon: "🔺", label: "LITTLE EXPLORER",
+    colors: "thumb-blue", objective: "Identify circles, triangles, squares, and rectangles in everyday objects.",
+    description: "Winnie is off on a shape safari! Look high and low for circles, squares, triangles, and more in this playful seek-and-find."
   },
   {
-    id: 6,
-    name: "True Wireless Studio Earbuds",
-    category: "electronics",
-    price: 89.00,
-    oldPrice: 110.00,
-    rating: 4.7,
-    reviewCount: 230,
-    badge: "sale",
-    badgeLabel: "20% OFF",
-    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80",
-    description: "Compact in-ear wireless earphones offering deep dynamic bass, IPX7 sweat resistance, and up to 32 hours total playtime with the pocket charging case.",
-    features: [
-      "IPX7 waterproof and sweatproof rating",
-      "8 hours battery per charge + 24 hours in case",
-      "Intuitive smart touch controls for tracks and calls",
-      "Fast Type-C charging (10 min charge = 2 hrs playtime)"
-    ]
+    id: "moonlight-tale", category: "stories", title: "Milo's Moonlight Story", creator: "The Cozy Corner",
+    duration: "5:10", age: "Ages 3–7", views: 8100, likes: 802, icon: "🌙", label: "COZY FAVORITE",
+    colors: "thumb-peach", objective: "Practice listening, imagination, and kindness through a gentle bedtime story.",
+    description: "Little Milo finds a glowing surprise on a quiet night walk. A cozy story about helping a friend and finding your way home."
   },
   {
-    id: 7,
-    name: "Heritage Canvas Low-Top Sneakers",
-    category: "fashion",
-    price: 75.00,
-    oldPrice: null,
-    rating: 4.8,
-    reviewCount: 57,
-    badge: "new",
-    badgeLabel: "New",
-    image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&auto=format&fit=crop&q=80",
-    description: "Classic court-inspired canvas sneakers engineered with an orthopedic cushioned footbed and durable vulcanized rubber outsole for all-day comfort.",
-    features: [
-      "Breathable double-ply heavy cotton canvas",
-      "Cushioned memory foam arch support insole",
-      "Non-slip vulcanized waffle rubber sole",
-      "Reinforced aluminum lace eyelets"
-    ]
+    id: "dance-colors", category: "creativity", title: "Dance the Colors!", creator: "Sunny Sounds",
+    duration: "1:36", age: "Ages 3–6", views: 10200, likes: 887, icon: "🎨", label: "SING IT AGAIN",
+    colors: "thumb-pink", objective: "Name basic colors and connect them with movement and music.",
+    description: "Red, yellow, blue! Wiggle, stretch, and sing along while learning the colors of our wonderful world."
   },
   {
-    id: 8,
-    name: "Ceramic Pour-Over Coffee Dripper Set",
-    category: "lifestyle",
-    price: 38.00,
-    oldPrice: 48.00,
-    rating: 4.9,
-    reviewCount: 76,
-    badge: "popular",
-    badgeLabel: "Top Rated",
-    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80",
-    description: "Master the art of handcrafted artisanal coffee. Heat-retentive matte ceramic dripper coupled with a 600ml borosilicate glass decanter.",
-    features: [
-      "High-fired thermal ceramic cone dripper",
-      "Heat-resistant 600ml borosilicate glass carafe",
-      "Includes 40 biodegradable unbleached cone filters",
-      "Dishwasher safe and easy to clean"
-    ]
+    id: "tiny-gardener", category: "science", title: "A Seed's Big Adventure", creator: "Curious Cloud",
+    duration: "3:52", age: "Ages 6–9", views: 5900, likes: 477, icon: "🌱", label: "NATURE FRIEND",
+    colors: "thumb-mint", objective: "Understand the basic stages in a plant's life cycle.",
+    description: "A teeny seed has a big dream! Follow its journey from tiny sprout to happy sunflower and discover what plants need to grow."
   }
 ];
 
-// Fallback SVG placeholder in case image fails to load
-const FALLBACK_IMAGE = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" fill="%2364748b">NovaStore Product</text></svg>`;
+const videoGrid = document.getElementById("videoGrid");
+const videoSearch = document.getElementById("videoSearch");
+const emptyState = document.getElementById("emptyState");
+const videoDialog = document.getElementById("videoDialog");
+const promptDialog = document.getElementById("promptDialog");
+const toast = document.getElementById("toast");
+let activeFilter = "all";
+let activeAge = "all";
+let toastTimer;
+let activeChallenge;
 
-// ==========================================
-// 2. Application State
-// ==========================================
-let cart = [];
-let currentCategory = "all";
-let currentSearch = "";
-
-// Load cart from LocalStorage on initialization
-function loadCartFromStorage() {
+function readList(key) {
   try {
-    const saved = localStorage.getItem("novastore_cart");
-    if (saved) {
-      cart = JSON.parse(saved);
-    }
-  } catch (e) {
-    console.error("Failed to parse cart from storage:", e);
-    cart = [];
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch (error) {
+    console.warn(`Could not read ${key} from local storage.`, error);
+    return [];
   }
 }
 
-function saveCartToStorage() {
+function readCounts(key) {
   try {
-    localStorage.setItem("novastore_cart", JSON.stringify(cart));
-  } catch (e) {
-    console.error("Failed to save cart to storage:", e);
+    const value = JSON.parse(localStorage.getItem(key) || "{}");
+    return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  } catch (error) {
+    console.warn(`Could not read ${key} from local storage.`, error);
+    return {};
   }
 }
 
-// ==========================================
-// 3. DOM Elements Cache
-// ==========================================
-const productsGrid = document.getElementById("productsGrid");
-const emptyResults = document.getElementById("emptyResults");
-const resultsCount = document.getElementById("resultsCount");
-const categoryFilters = document.getElementById("categoryFilters");
-const searchInput = document.getElementById("searchInput");
-const clearSearchBtn = document.getElementById("clearSearchBtn");
-const resetFilterBtn = document.getElementById("resetFilterBtn");
+function formatCount(count) {
+  return count >= 1000 ? `${(count / 1000).toFixed(count >= 10000 ? 0 : 1)}k` : String(count);
+}
 
-// Cart Elements
-const openCartBtn = document.getElementById("openCartBtn");
-const closeCartBtn = document.getElementById("closeCartBtn");
-const cartDrawer = document.getElementById("cartDrawer");
-const cartBackdrop = document.getElementById("cartBackdrop");
-const cartItemsContainer = document.getElementById("cartItemsContainer");
-const cartEmptyState = document.getElementById("cartEmptyState");
-const cartFooter = document.getElementById("cartFooter");
-const cartCountBadge = document.getElementById("cartCountBadge");
-const cartTotalItems = document.getElementById("cartTotalItems");
-const cartSubtotal = document.getElementById("cartSubtotal");
-const cartShipping = document.getElementById("cartShipping");
-const cartTotal = document.getElementById("cartTotal");
-const clearCartBtn = document.getElementById("clearCartBtn");
-const startShoppingBtn = document.getElementById("startShoppingBtn");
-const checkoutBtn = document.getElementById("checkoutBtn");
+function makeCard(video) {
+  const favorites = readList("kidsworld-favorites");
+  const liked = readList("kidsworld-liked");
+  const isSaved = favorites.includes(video.id);
+  const isLiked = liked.includes(video.id);
+  const viewCounts = readCounts("kidsworld-view-counts");
+  return `
+    <article class="video-card">
+      <button class="video-thumbnail ${video.colors}" data-play="${video.id}" aria-label="Play ${video.title}">
+        <span class="thumbnail-label">${video.label}</span>
+        <span class="thumbnail-art" aria-hidden="true">${video.icon}</span>
+        <span class="play-button" aria-hidden="true">▶</span>
+        <span class="duration">${video.duration}</span>
+      </button>
+      <div class="video-card-body">
+        <div class="video-creator"><span class="creator-avatar">✦</span><span>${video.creator}</span><span class="verified" aria-label="Curated channel">✓</span></div>
+        <button class="video-title" data-play="${video.id}">${video.title}</button>
+        <p class="video-objective">${video.objective}</p>
+        <div class="video-stats"><span>◉ ${formatCount(video.views + Number(viewCounts[video.id] || 0))} views</span><span>♡ ${formatCount(video.likes + Number(isLiked))}</span><span class="age-tag">${video.age}</span></div>
+        <div class="video-actions">
+          <button class="video-action ${isLiked ? "is-active" : ""}" data-like="${video.id}" aria-label="${isLiked ? "Unlike" : "Like"} ${video.title}" aria-pressed="${isLiked}">${isLiked ? "♥" : "♡"} <span>Like</span></button>
+          <button class="video-action ${isSaved ? "is-active" : ""}" data-save="${video.id}" aria-label="${isSaved ? "Remove from" : "Save to"} favorites" aria-pressed="${isSaved}">${isSaved ? "★" : "☆"} <span>${isSaved ? "Saved" : "Save"}</span></button>
+          <button class="video-action" data-share="${video.id}" aria-label="Share ${video.title}">↗ <span>Share</span></button>
+        </div>
+      </div>
+    </article>`;
+}
 
-// Quick View Modal Elements
-const quickViewBackdrop = document.getElementById("quickViewBackdrop");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const modalBody = document.getElementById("modalBody");
-
-// Checkout Success Modal Elements
-const checkoutBackdrop = document.getElementById("checkoutBackdrop");
-const finishCheckoutBtn = document.getElementById("finishCheckoutBtn");
-const orderNumber = document.getElementById("orderNumber");
-const checkoutOrderSummary = document.getElementById("checkoutOrderSummary");
-
-// Newsletter Form & Mobile Navigation
-const newsletterForm = document.getElementById("newsletterForm");
-const newsletterEmail = document.getElementById("newsletterEmail");
-const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-const navLinks = document.getElementById("navLinks");
-const toastContainer = document.getElementById("toastContainer");
-
-// ==========================================
-// 4. Product Rendering & Filtering
-// ==========================================
-function renderProducts() {
-  const filtered = PRODUCTS.filter((item) => {
-    const matchCat = (currentCategory === "all") || (item.category === currentCategory);
-    const query = currentSearch.trim().toLowerCase();
-    const matchSearch = query === "" || 
-      item.name.toLowerCase().includes(query) || 
-      item.category.toLowerCase().includes(query) ||
-      item.description.toLowerCase().includes(query);
-    return matchCat && matchSearch;
+function renderVideos() {
+  const query = videoSearch.value.trim().toLowerCase();
+  const matches = videos.filter((video) => {
+    const favorites = readList("kidsworld-favorites");
+    const history = readList("kidsworld-history");
+    const matchesFilter = activeFilter === "all"
+      || (activeFilter === "saved" && favorites.includes(video.id))
+      || (activeFilter === "history" && history.includes(video.id))
+      || video.category === activeFilter;
+    const matchesQuery = `${video.title} ${video.creator} ${video.category} ${video.objective}`.toLowerCase().includes(query);
+    const ageRange = video.age.match(/\d+/g)?.map(Number) || [];
+    const matchesAge = activeAge === "all" || (ageRange.length === 2 && ageRange[0] <= Number(activeAge.split("-")[1]) && ageRange[1] >= Number(activeAge.split("-")[0]));
+    return matchesFilter && matchesQuery && matchesAge;
   });
+  videoGrid.innerHTML = matches.map(makeCard).join("");
+  emptyState.hidden = matches.length > 0;
+}
 
-  // Update status label
-  if (filtered.length === 0) {
-    productsGrid.innerHTML = "";
-    emptyResults.style.display = "block";
-    resultsCount.textContent = "No products found";
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
+}
+
+function updateLearnerProgress() {
+  const xp = Number(localStorage.getItem("kidsworld-xp") || 120);
+  const level = Math.max(2, Math.floor(xp / 100) + 1);
+  document.getElementById("learnerLevel").textContent = `Level ${level} · Curious Cub`;
+  document.getElementById("learnerXp").textContent = `${xp} / ${level * 100} XP`;
+  document.getElementById("learnerProgress").style.width = `${Math.min(100, (xp / (level * 100)) * 100)}%`;
+}
+
+function setActiveFilter(filter) {
+  activeFilter = filter;
+  document.querySelectorAll(".filter-tab:not(.age-filter)").forEach((tab) => {
+    const selected = tab.dataset.filter === filter;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-pressed", String(selected));
+  });
+  renderVideos();
+}
+
+function openVideo(id) {
+  const video = videos.find((item) => item.id === id);
+  if (!video) return;
+  const history = readList("kidsworld-history").filter((watchedId) => watchedId !== id);
+  localStorage.setItem("kidsworld-history", JSON.stringify([id, ...history].slice(0, 30)));
+  const viewCounts = readCounts("kidsworld-view-counts");
+  viewCounts[id] = Number(viewCounts[id] || 0) + 1;
+  localStorage.setItem("kidsworld-view-counts", JSON.stringify(viewCounts));
+  renderVideos();
+  document.getElementById("dialogCategory").textContent = `${video.category} · ${video.age}`;
+  document.getElementById("dialogTitle").textContent = video.title;
+  document.getElementById("dialogDescription").textContent = `${video.description} Learning goal: ${video.objective}`;
+  const player = document.getElementById("dialogPlayer");
+  player.className = `dialog-player ${video.colors}`;
+  player.innerHTML = `<span class="dialog-art" aria-hidden="true">${video.icon}</span><span class="dialog-play" aria-hidden="true">▶</span><span class="player-caption">A little preview of ${video.creator}</span>`;
+  const sameSubject = videos.filter((item) => item.category === video.category && item.id !== video.id);
+  const related = (sameSubject.length ? sameSubject : videos.filter((item) => item.id !== video.id)).slice(0, 2);
+  document.getElementById("dialogMeta").innerHTML = `<span>◉ ${formatCount(video.views + viewCounts[id])} views this week</span><span>♡ ${formatCount(video.likes)} happy learners</span>${related.map((item) => `<button class="related-link" data-play="${item.id}">More ${item.category}: ${item.title} →</button>`).join("")}`;
+  videoDialog.showModal();
+}
+
+document.getElementById("filterTabs").addEventListener("click", (event) => {
+  const ageButton = event.target.closest("[data-age]");
+  if (ageButton) {
+    activeAge = ageButton.dataset.age;
+    document.querySelectorAll(".age-filter").forEach((tab) => {
+      const selected = tab.dataset.age === activeAge;
+      tab.classList.toggle("active", selected);
+      tab.setAttribute("aria-pressed", String(selected));
+    });
+    renderVideos();
     return;
   }
-
-  emptyResults.style.display = "none";
-  const catLabel = currentCategory === "all" ? "all categories" : currentCategory;
-  resultsCount.textContent = `Showing ${filtered.length} of ${PRODUCTS.length} products (${catLabel})`;
-
-  productsGrid.innerHTML = filtered.map(product => {
-    let badgeHtml = "";
-    if (product.badge === "sale") {
-      badgeHtml = `<span class="badge-tag badge-sale">${product.badgeLabel || 'Sale'}</span>`;
-    } else if (product.badge === "new") {
-      badgeHtml = `<span class="badge-tag badge-new">${product.badgeLabel || 'New'}</span>`;
-    } else if (product.badge === "popular") {
-      badgeHtml = `<span class="badge-tag badge-popular">${product.badgeLabel || 'Popular'}</span>`;
-    }
-
-    const oldPriceHtml = product.oldPrice 
-      ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` 
-      : "";
-
-    return `
-      <article class="product-card" data-id="${product.id}">
-        <div class="product-image-wrap">
-          ${badgeHtml}
-          <img 
-            src="${product.image}" 
-            alt="${product.name}" 
-            loading="lazy" 
-            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}';"
-          >
-          <button class="quick-view-overlay-btn" onclick="openQuickView(${product.id})">
-            👁️ Quick View
-          </button>
-        </div>
-        <div class="product-info">
-          <div class="product-category">${product.category}</div>
-          <h3 class="product-name">${product.name}</h3>
-          <div class="product-rating">
-            <span class="stars">★</span>
-            <span><strong>${product.rating.toFixed(1)}</strong> (${product.reviewCount})</span>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">$${product.price.toFixed(2)}</span>
-              ${oldPriceHtml}
-            </div>
-            <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
-              <span>+ Add</span>
-            </button>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join("");
-}
-
-// ==========================================
-// 5. Shopping Cart Functionality
-// ==========================================
-function addToCart(productId, quantity = 1) {
-  const product = PRODUCTS.find(p => p.id === productId);
-  if (!product) return;
-
-  const existing = cart.find(item => item.id === productId);
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: quantity
-    });
-  }
-
-  saveCartToStorage();
-  updateCartUI();
-  showToast(`Added "${product.name}" to cart!`, "success");
-}
-
-function updateQuantity(productId, delta) {
-  const item = cart.find(i => i.id === productId);
-  if (!item) return;
-
-  item.quantity += delta;
-  if (item.quantity <= 0) {
-    removeFromCart(productId, false);
-    return;
-  }
-
-  saveCartToStorage();
-  updateCartUI();
-}
-
-function removeFromCart(productId, notify = true) {
-  const itemIndex = cart.findIndex(i => i.id === productId);
-  if (itemIndex > -1) {
-    const itemName = cart[itemIndex].name;
-    cart.splice(itemIndex, 1);
-    saveCartToStorage();
-    updateCartUI();
-    if (notify) {
-      showToast(`Removed "${itemName}" from cart`, "info");
-    }
-  }
-}
-
-function clearCart() {
-  if (cart.length === 0) return;
-  cart = [];
-  saveCartToStorage();
-  updateCartUI();
-  showToast("Your cart has been cleared", "info");
-}
-
-function updateCartUI() {
-  const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 50 || subtotal === 0 ? 0 : 9.99;
-  const grandTotal = subtotal + shipping;
-
-  // Header & Drawer count badges
-  cartCountBadge.textContent = totalCount;
-  cartTotalItems.textContent = totalCount;
-
-  // Empty cart toggle
-  if (cart.length === 0) {
-    cartEmptyState.style.display = "flex";
-    cartItemsContainer.style.display = "none";
-    cartFooter.style.display = "none";
-  } else {
-    cartEmptyState.style.display = "none";
-    cartItemsContainer.style.display = "flex";
-    cartFooter.style.display = "block";
-
-    // Render cart items
-    cartItemsContainer.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <img 
-          src="${item.image}" 
-          alt="${item.name}" 
-          class="cart-item-img"
-          onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}';"
-        >
-        <div class="cart-item-info">
-          <h4 class="cart-item-title">${item.name}</h4>
-          <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-          <div class="cart-item-controls">
-            <div class="qty-control">
-              <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)" aria-label="Decrease quantity">-</button>
-              <span class="qty-display">${item.quantity}</span>
-              <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)" aria-label="Increase quantity">+</button>
-            </div>
-            <button class="cart-item-delete" onclick="removeFromCart(${item.id})">
-              🗑️ Remove
-            </button>
-          </div>
-        </div>
-      </div>
-    `).join("");
-
-    // Update totals
-    cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    cartShipping.textContent = subtotal > 50 ? "FREE" : `$${shipping.toFixed(2)}`;
-    cartTotal.textContent = `$${grandTotal.toFixed(2)}`;
-  }
-}
-
-// Open/Close Cart Drawer
-function openCart() {
-  cartDrawer.classList.add("open");
-  cartBackdrop.classList.add("open");
-  document.body.style.overflow = "hidden"; // Prevent background scroll
-}
-
-function closeCart() {
-  cartDrawer.classList.remove("open");
-  cartBackdrop.classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-// ==========================================
-// 6. Quick View Modal
-// ==========================================
-function openQuickView(productId) {
-  const product = PRODUCTS.find(p => p.id === productId);
-  if (!product) return;
-
-  const oldPriceHtml = product.oldPrice 
-    ? `<span class="modal-old-price">$${product.oldPrice.toFixed(2)}</span>` 
-    : "";
-
-  modalBody.innerHTML = `
-    <div class="modal-img-wrap">
-      <img 
-        src="${product.image}" 
-        alt="${product.name}" 
-        onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}';"
-      >
-    </div>
-    <div class="modal-details">
-      <span class="modal-category">${product.category}</span>
-      <h2 class="modal-title">${product.name}</h2>
-      <div class="product-rating" style="margin-bottom: 0.75rem;">
-        <span class="stars">★★★★★</span>
-        <span><strong>${product.rating.toFixed(1)}</strong> out of 5 (${product.reviewCount} customer reviews)</span>
-      </div>
-      <div class="modal-price-row">
-        <span class="modal-price">$${product.price.toFixed(2)}</span>
-        ${oldPriceHtml}
-      </div>
-      <p class="modal-desc">${product.description}</p>
-      
-      <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem;">Key Highlights:</h4>
-      <ul class="modal-features-list">
-        ${product.features.map(f => `<li>✓ ${f}</li>`).join("")}
-      </ul>
-
-      <div style="margin-top: auto; display: flex; gap: 1rem;">
-        <button class="btn btn-primary" style="flex: 1;" onclick="addToCart(${product.id}); closeQuickView();">
-          🛍️ Add to Cart - $${product.price.toFixed(2)}
-        </button>
-      </div>
-    </div>
-  `;
-
-  quickViewBackdrop.classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeQuickView() {
-  quickViewBackdrop.classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-// ==========================================
-// 7. Checkout Process Simulation
-// ==========================================
-function handleCheckout() {
-  if (cart.length === 0) return;
-
-  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 50 ? 0 : 9.99;
-  const total = subtotal + shipping;
-  const randomOrder = Math.floor(10000 + Math.random() * 90000);
-
-  orderNumber.textContent = randomOrder;
-  checkoutOrderSummary.innerHTML = `
-    <div class="order-summary-row">
-      <span>Total Items:</span>
-      <span>${cart.reduce((s, i) => s + i.quantity, 0)} units</span>
-    </div>
-    <div class="order-summary-row">
-      <span>Subtotal:</span>
-      <span>$${subtotal.toFixed(2)}</span>
-    </div>
-    <div class="order-summary-row">
-      <span>Shipping:</span>
-      <span>${shipping === 0 ? "FREE" : "$" + shipping.toFixed(2)}</span>
-    </div>
-    <div class="order-summary-row total-row">
-      <span>Total Paid:</span>
-      <span>$${total.toFixed(2)}</span>
-    </div>
-  `;
-
-  // Close drawer, clear cart, open order confirmed modal
-  closeCart();
-  cart = [];
-  saveCartToStorage();
-  updateCartUI();
-
-  checkoutBackdrop.classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeCheckoutModal() {
-  checkoutBackdrop.classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-// ==========================================
-// 8. Toast Notifications
-// ==========================================
-function showToast(message, type = "info") {
-  const toast = document.createElement("div");
-  toast.className = `toast toast-${type}`;
-  
-  let icon = "ℹ️";
-  if (type === "success") icon = "✅";
-  if (type === "error") icon = "⚠️";
-
-  toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-  toastContainer.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = "0";
-    toast.style.transform = "translateY(10px)";
-    toast.style.transition = "all 0.3s ease";
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.parentNode.removeChild(toast);
-      }
-    }, 300);
-  }, 3000);
-}
-
-// ==========================================
-// 9. Event Listeners Setup
-// ==========================================
-function initEvents() {
-  // Category Pill Filters
-  categoryFilters.addEventListener("click", (e) => {
-    if (e.target.classList.contains("filter-pill")) {
-      categoryFilters.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
-      e.target.classList.add("active");
-      currentCategory = e.target.getAttribute("data-category");
-      renderProducts();
-    }
-  });
-
-  // Search Input Filter
-  searchInput.addEventListener("input", (e) => {
-    currentSearch = e.target.value;
-    clearSearchBtn.style.display = currentSearch ? "block" : "none";
-    renderProducts();
-  });
-
-  clearSearchBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    currentSearch = "";
-    clearSearchBtn.style.display = "none";
-    renderProducts();
-  });
-
-  resetFilterBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    currentSearch = "";
-    clearSearchBtn.style.display = "none";
-    currentCategory = "all";
-    categoryFilters.querySelectorAll(".filter-pill").forEach(p => {
-      p.classList.toggle("active", p.getAttribute("data-category") === "all");
-    });
-    renderProducts();
-  });
-
-  // Cart Drawer Events
-  openCartBtn.addEventListener("click", openCart);
-  closeCartBtn.addEventListener("click", closeCart);
-  cartBackdrop.addEventListener("click", closeCart);
-  clearCartBtn.addEventListener("click", clearCart);
-  startShoppingBtn.addEventListener("click", () => {
-    closeCart();
-    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
-  });
-  checkoutBtn.addEventListener("click", handleCheckout);
-
-  // Quick View Modal Events
-  closeModalBtn.addEventListener("click", closeQuickView);
-  quickViewBackdrop.addEventListener("click", (e) => {
-    if (e.target === quickViewBackdrop) closeQuickView();
-  });
-
-  // Checkout Modal Events
-  finishCheckoutBtn.addEventListener("click", closeCheckoutModal);
-  checkoutBackdrop.addEventListener("click", (e) => {
-    if (e.target === checkoutBackdrop) closeCheckoutModal();
-  });
-
-  // Keyboard shortcut: Escape to close drawer and modals
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeCart();
-      closeQuickView();
-      closeCheckoutModal();
-    }
-  });
-
-  // Mobile menu toggle
-  mobileMenuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("mobile-open");
-  });
-
-  // Close mobile menu when a navigation link is clicked
-  navLinks.querySelectorAll(".nav-link").forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("mobile-open");
-    });
-  });
-
-  // Newsletter form submission
-  newsletterForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = newsletterEmail.value.trim();
-    if (email) {
-      showToast(`Thank you for subscribing (${email})! Check your inbox for 15% off.`, "success");
-      newsletterEmail.value = "";
-    }
-  });
-}
-
-// ==========================================
-// 10. Initialization
-// ==========================================
-document.addEventListener("DOMContentLoaded", () => {
-  loadCartFromStorage();
-  initEvents();
-  renderProducts();
-  updateCartUI();
+  const subjectButton = event.target.closest("[data-filter]");
+  if (subjectButton) setActiveFilter(subjectButton.dataset.filter);
 });
+
+document.querySelector(".tools-grid").addEventListener("click", (event) => {
+  const link = event.target.closest("[data-filter]");
+  if (link) setActiveFilter(link.dataset.filter);
+});
+
+document.querySelector(".subject-grid").addEventListener("click", (event) => {
+  const card = event.target.closest("[data-filter]");
+  if (!card) return;
+  event.preventDefault();
+  setActiveFilter(card.dataset.filter);
+  document.getElementById("trending").scrollIntoView({ behavior: "smooth" });
+});
+
+videoSearch.addEventListener("input", renderVideos);
+
+videoGrid.addEventListener("click", async (event) => {
+  const play = event.target.closest("[data-play]");
+  const like = event.target.closest("[data-like]");
+  const save = event.target.closest("[data-save]");
+  const share = event.target.closest("[data-share]");
+
+  if (play) {
+    openVideo(play.dataset.play);
+    return;
+  }
+  if (like) {
+    const liked = readList("kidsworld-liked");
+    const wasLiked = liked.includes(like.dataset.like);
+    const next = wasLiked ? liked.filter((id) => id !== like.dataset.like) : [...liked, like.dataset.like];
+    localStorage.setItem("kidsworld-liked", JSON.stringify(next));
+    renderVideos();
+    showToast(wasLiked ? "Like removed." : "Thanks for the love! 💛");
+    return;
+  }
+  if (save) {
+    const favorites = readList("kidsworld-favorites");
+    const wasSaved = favorites.includes(save.dataset.save);
+    const next = wasSaved ? favorites.filter((id) => id !== save.dataset.save) : [...favorites, save.dataset.save];
+    localStorage.setItem("kidsworld-favorites", JSON.stringify(next));
+    renderVideos();
+    showToast(wasSaved ? "Removed from your favorites." : "Saved to your favorites! ⭐");
+    return;
+  }
+  if (share) {
+    const video = videos.find((item) => item.id === share.dataset.share);
+    const url = new URL(`#video-${video.id}`, window.location.href).href;
+    if (navigator.share) {
+      await navigator.share({ title: video.title, text: `A little learning: ${video.title}`, url });
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(url);
+      showToast("Video link copied for a grown-up to share! 🔗");
+    } else {
+      showToast("Ask a grown-up to copy this video's link.");
+    }
+  }
+});
+
+document.getElementById("dialogMeta").addEventListener("click", (event) => {
+  const link = event.target.closest("[data-play]");
+  if (link) openVideo(link.dataset.play);
+});
+
+document.querySelectorAll("[data-close]").forEach((button) => {
+  button.addEventListener("click", () => button.closest("dialog").close());
+});
+
+[videoDialog, promptDialog].forEach((dialog) => {
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+});
+
+document.querySelectorAll(".challenge-card").forEach((card) => {
+  card.addEventListener("click", () => {
+    activeChallenge = card.dataset;
+    document.getElementById("promptQuestion").textContent = card.dataset.challenge;
+    document.getElementById("promptAnswer").value = "";
+    document.getElementById("answerFeedback").textContent = "";
+    promptDialog.showModal();
+    document.getElementById("promptAnswer").focus();
+  });
+});
+
+document.getElementById("checkAnswer").addEventListener("click", () => {
+  const answer = document.getElementById("promptAnswer").value.trim();
+  const feedback = document.getElementById("answerFeedback");
+  if (!answer) {
+    feedback.textContent = "Pop your guess in the box first! 😊";
+    feedback.className = "feedback-reminder";
+    return;
+  }
+  if (answer.toLowerCase() !== activeChallenge?.answer) {
+    feedback.textContent = "Not quite! Have another think, you can do it! 💛";
+    feedback.className = "feedback-reminder";
+    return;
+  }
+  const completed = readList("kidsworld-challenges");
+  feedback.textContent = completed.includes(activeChallenge.challenge)
+    ? "You got it! This challenge already earned you a star! ⭐"
+    : "Wonderful guess! You’re a curious superstar! ✨";
+  feedback.className = "feedback-success";
+  if (completed.includes(activeChallenge.challenge)) return;
+  localStorage.setItem("kidsworld-challenges", JSON.stringify([...completed, activeChallenge.challenge]));
+  const xp = Number(localStorage.getItem("kidsworld-xp") || 120) + 10;
+  localStorage.setItem("kidsworld-xp", String(xp));
+  updateLearnerProgress();
+  showToast("Challenge complete! +10 curious points ✨");
+});
+
+document.getElementById("screenTimeButton").addEventListener("click", () => {
+  const minutes = window.prompt("How many minutes should a grown-up set for a learning break?", "20");
+  if (minutes === null) return;
+  const parsed = Number(minutes);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 180) {
+    showToast("Please ask a grown-up to choose 1–180 minutes.");
+    return;
+  }
+  localStorage.setItem("kidsworld-screen-time", String(parsed));
+  showToast(`A grown-up set a ${parsed}-minute learning reminder. ⏰`);
+});
+
+const themeToggle = document.getElementById("themeToggle");
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.textContent = theme === "dark" ? "☀" : "☾";
+  themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
+}
+applyTheme(localStorage.getItem("kidsworld-theme") || "light");
+updateLearnerProgress();
+themeToggle.addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("kidsworld-theme", nextTheme);
+  applyTheme(nextTheme);
+});
+
+const mobileMenu = document.getElementById("mobileMenu");
+const mainNav = document.getElementById("mainNav");
+mobileMenu.addEventListener("click", () => {
+  const expanded = mobileMenu.getAttribute("aria-expanded") === "true";
+  mobileMenu.setAttribute("aria-expanded", String(!expanded));
+  mobileMenu.setAttribute("aria-label", expanded ? "Open navigation" : "Close navigation");
+  mainNav.classList.toggle("is-open", !expanded);
+});
+mainNav.addEventListener("click", (event) => {
+  if (event.target.closest("a")) {
+    mainNav.classList.remove("is-open");
+    mobileMenu.setAttribute("aria-expanded", "false");
+  }
+});
+
+renderVideos();
